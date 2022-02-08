@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 public class BaseDeDatosFixture {
 
     private static final String MIGRATION_PATH = "filesystem:src/main/db/migrations";
-    private static final String DATA_PATH = "classpath:ar/com/grupoesfera/repartir/data/";
+    private static final String DATA_PATH = "classpath:data/";
 
     @Autowired
     private DataSource dataSource;

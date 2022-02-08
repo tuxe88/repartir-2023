@@ -1,4 +1,4 @@
-package ar.com.grupoesfera.repartir.features;
+package features;
 
 import io.cucumber.junit.platform.engine.Cucumber;
 
