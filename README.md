@@ -18,3 +18,10 @@ Para ejecutar todas las pruebas
 ```
 ./gradlew bootRun
 ```
+## Acceso web
+
+http://localhost:8080/
+
+## Open API
+
+http://localhost:8080/swagger-ui.html
