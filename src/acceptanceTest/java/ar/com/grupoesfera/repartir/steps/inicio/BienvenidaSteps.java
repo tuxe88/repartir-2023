@@ -61,6 +61,7 @@ public class BienvenidaSteps extends CucumberSteps {
 
         baseDeDatos.estaVacia();
         driver.navigate().to(url("/"));
+        driver.findElement(By.id("usuarioInput")).sendKeys("julian");
         var iniciarButton = driver.findElement(By.id("iniciarBienvenidaButton"));
         iniciarButton.click();
     }
