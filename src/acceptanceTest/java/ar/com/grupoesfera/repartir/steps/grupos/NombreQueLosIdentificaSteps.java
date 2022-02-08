@@ -68,7 +68,7 @@ public class NombreQueLosIdentificaSteps extends CucumberSteps {
     }
 
     @Entonces("no debería crear el grupo sin nombre")
-    public void noDeberíaCrearElGrupoSinNombre() {
+    public void noDeberiaCrearElGrupoSinNombre() {
 
         // TODO
     }
