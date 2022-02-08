@@ -18,6 +18,7 @@ testSets {
 	integrationTest
 	uiTest
 	acceptanceTest
+	apiAcceptanceTest
 	manualTest
 }
 
@@ -47,6 +48,12 @@ dependencies {
 	acceptanceTestImplementation 'org.flywaydb:flyway-core:7.11.3'
 	acceptanceTestRuntimeOnly 'org.testcontainers:mariadb:1.15.2'
 
+	apiAcceptanceTestImplementation 'io.cucumber:cucumber-java:6.10.4'
+	apiAcceptanceTestImplementation 'io.cucumber:cucumber-junit-platform-engine:6.10.4'
+	apiAcceptanceTestImplementation 'io.cucumber:cucumber-spring:6.10.4'
+	apiAcceptanceTestImplementation 'org.flywaydb:flyway-core:7.11.3'
+	apiAcceptanceTestRuntimeOnly 'org.testcontainers:mariadb:1.15.2'
+
 	manualTestImplementation 'org.flywaydb:flyway-core:7.11.3'
 	manualTestImplementation "org.testcontainers:junit-jupiter:1.15.2"
 	manualTestRuntimeOnly 'org.testcontainers:mariadb:1.15.2'
@@ -69,6 +76,11 @@ uiTest {
 acceptanceTest {
 	useJUnitPlatform()
 	mustRunAfter uiTest
+}
+
+apiAcceptanceTest {
+	useJUnitPlatform()
+	mustRunAfter acceptanceTest
 }
 
 check {
