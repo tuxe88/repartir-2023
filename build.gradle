@@ -55,6 +55,7 @@ dependencies {
 	apiAcceptanceTestImplementation 'io.cucumber:cucumber-spring:6.10.4'
 	apiAcceptanceTestImplementation 'org.flywaydb:flyway-core:7.11.3'
 	apiAcceptanceTestImplementation 'org.testcontainers:junit-jupiter:1.15.2'
+	apiAcceptanceTestImplementation 'io.rest-assured:rest-assured:4.4.0'
 	apiAcceptanceTestRuntimeOnly 'org.testcontainers:mariadb:1.15.2'
 
 	manualTestImplementation 'org.flywaydb:flyway-core:7.11.3'
