@@ -38,8 +38,10 @@ public class BienvenidaSteps extends CucumberSteps {
     public void decidioIniciar() {
 
         usuario = "catalina";
-        response = when()
-                .get(url("/api/usuarios/{usuario}"), usuario)
+        response = with()
+                    .pathParam("usuario", usuario)
+                .when()
+                    .get(url("/api/usuarios/{usuario}"), usuario)
                 .then();
 
     }
