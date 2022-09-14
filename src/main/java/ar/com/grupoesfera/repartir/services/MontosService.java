@@ -21,4 +21,8 @@ public class MontosService {
         grupo.setTotal(total);
     }
 
+    public BigDecimal dividirMonto(BigDecimal monto, int partes) {
+
+        return monto.divide(BigDecimal.valueOf(partes));
+    }
 }
