@@ -49,12 +49,26 @@ class MontosServiceTest {
         assertThat(grupo.getTotal()).isEqualTo($(324,41));
     }
 
-    @Disabled
     @Test
     void dividirMonto() {
 
         BigDecimal montoDividido = montos.dividirMonto($(10, 50), 2);
 
-        assertThat(montoDividido).isEqualTo(5.25);
+        assertThat(montoDividido).isEqualTo($(5, 25));
+    }
+
+    @Test
+    void divisionInexactaDeLosMontos() {
+
+        BigDecimal montoDividido = montos.dividirMonto($(9,99), 2);
+
+        assertThat(montoDividido).isEqualTo($(4,99));
+    }
+
+    @Test
+    @Disabled
+    void dividirPorCero() {
+
+        montos.dividirMonto($(10,0), 0);
     }
 }

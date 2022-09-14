@@ -5,6 +5,7 @@ import ar.com.grupoesfera.repartir.model.Grupo;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Service
 public class MontosService {
@@ -23,6 +24,6 @@ public class MontosService {
 
     public BigDecimal dividirMonto(BigDecimal monto, int partes) {
 
-        return monto.divide(BigDecimal.valueOf(partes));
+        return monto.divide(BigDecimal.valueOf(partes), 2, RoundingMode.DOWN);
     }
 }
