@@ -1,12 +1,14 @@
 package ar.com.grupoesfera.repartir.services;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import ar.com.grupoesfera.repartir.exceptions.DivisionInvalidaException;
 import ar.com.grupoesfera.repartir.model.Gasto;
 import ar.com.grupoesfera.repartir.model.Grupo;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
 
 import java.math.BigDecimal;
 
@@ -66,9 +68,8 @@ class MontosServiceTest {
     }
 
     @Test
-    @Disabled
     void dividirPorCero() {
 
-        montos.dividirMonto($(10,0), 0);
+        assertThrows(DivisionInvalidaException.class, ()-> montos.dividirMonto($(10,0), 0));
     }
 }
