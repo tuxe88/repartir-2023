@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElement;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class NombreQueLosIdentificaSteps extends CucumberSteps {
 
@@ -21,7 +22,8 @@ public class NombreQueLosIdentificaSteps extends CucumberSteps {
 
         nombreIndicado = nombre;
 
-        var crearGruposButton = driver.findElement(By.id("crearGruposButton"));
+        var wait = new WebDriverWait(driver, 2);
+        var crearGruposButton = wait.until(elementToBeClickable(By.id("crearGruposButton")));
         crearGruposButton.click();
 
         driver.findElement(By.id("nombreGrupoNuevoInput")).sendKeys(nombreIndicado);
@@ -34,7 +36,6 @@ public class NombreQueLosIdentificaSteps extends CucumberSteps {
 
         driver.findElement(By.id("guardarGrupoNuevoButton")).click();
 
-        var wait = new WebDriverWait(driver, 2);
         wait.until(visibilityOfElementLocated(By.id("mensajesToast")));
     }
 
