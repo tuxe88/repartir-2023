@@ -1,7 +1,7 @@
 image: openjdk:17-jdk-alpine
 
 variables:
-  GRADLE_OPTS: "-Dorg.gradle.daemon=true"
+  GRADLE_OPTS: "-Dorg.gradle.daemon=true -Dorg.gradle.caching=true"
 
 stages:
   - build
@@ -36,7 +36,9 @@ unit-test:
     when: always
     reports:
       junit: build/test-results/test/**/TEST-*.xml
-
+    paths:
+      - build/jacoco
+      - build/reports/test
 
 integration-test:
   stage: test
@@ -46,6 +48,9 @@ integration-test:
     when: always
     reports:
       junit: build/test-results/integrationTest/**/TEST-*.xml
+    paths:
+      - build/jacoco
+      - build/reports/integrationTest
 
 ui-test:
   stage: test
@@ -56,6 +61,9 @@ ui-test:
     when: always
     reports:
       junit: build/test-results/uiTest/**/TEST-*.xml
+    paths:
+      - build/jacoco
+      - build/reports/uiTest
 
 acceptance-test:
   stage: test
@@ -66,6 +74,9 @@ acceptance-test:
     when: always
     reports:
       junit: build/test-results/acceptanceTest/**/TEST-*.xml
+    paths:
+      - build/jacoco
+      - build/reports/acceptanceTest
 
 linting:
   stage: test
@@ -77,10 +88,14 @@ package:
   script:
     - echo "Packaging"
 
-report-tests:
+report-test-coverage:
   stage: report
   script:
-    - echo "Reporting"
+    - ./gradlew jacocoTestReport --info
+  artifacts:
+    when: always
+    paths:
+      - build/reports/jacoco
 
 deploy-dev:
   stage: deploy
