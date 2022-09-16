@@ -1,10 +1,7 @@
 image: openjdk:17-jdk-alpine
 
 variables:
-  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-
-before_script:
-  - export GRADLE_USER_HOME=`pwd`/.gradle
+  GRADLE_OPTS: "-Dorg.gradle.daemon=true"
 
 stages:
   - build
@@ -12,6 +9,15 @@ stages:
   - package
   - report
   - deploy
+
+before_script:
+  - export GRADLE_USER_HOME=cache/.gradle
+
+cache:
+  paths:
+    - $GRADLE_USER_HOME/caches/
+    - $GRADLE_USER_HOME/wrapper/
+    - $GRADLE_USER_HOME/build-cache/
 
 build:
   stage: build
