@@ -5,6 +5,7 @@ plugins {
 	id 'org.unbroken-dome.test-sets' version '4.0.0'
 	id "org.flywaydb.flyway" version '7.11.3'
 	id 'jacoco'
+	id 'pmd'
 }
 
 group = 'ar.com.grupoesfera'
@@ -113,6 +114,14 @@ jacocoTestReport {
 	reports {
 		html.destination file("${buildDir}/reports/jacoco/html")
 	}
+}
+
+pmd {
+	toolVersion = "6.49.0"
+	ignoreFailures = true
+	ruleSets = [
+		'rulesets/java/quickstart.xml',
+	]
 }
 
 bootRun {

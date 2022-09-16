@@ -5,9 +5,10 @@ variables:
 
 stages:
   - build
+  - analyze
   - test
-  - package
   - report
+  - package
   - deploy
 
 before_script:
@@ -38,7 +39,7 @@ unit-test:
       junit: build/test-results/test/**/TEST-*.xml
     paths:
       - build/jacoco
-      - build/reports/test
+      - build/reports/tests/test
 
 integration-test:
   stage: test
@@ -50,7 +51,7 @@ integration-test:
       junit: build/test-results/integrationTest/**/TEST-*.xml
     paths:
       - build/jacoco
-      - build/reports/integrationTest
+      - build/reports/tests/integrationTest
 
 ui-test:
   stage: test
@@ -63,7 +64,7 @@ ui-test:
       junit: build/test-results/uiTest/**/TEST-*.xml
     paths:
       - build/jacoco
-      - build/reports/uiTest
+      - build/reports/tests/uiTest
 
 acceptance-test:
   stage: test
@@ -76,12 +77,8 @@ acceptance-test:
       junit: build/test-results/acceptanceTest/**/TEST-*.xml
     paths:
       - build/jacoco
-      - build/reports/acceptanceTest
-
-linting:
-  stage: test
-  script:
-    - echo "Linting code... This will take about 10 seconds."
+      - build/reports/tests/acceptanceTest
+      - build/reports/acceptance.html
 
 package:
   stage: package
@@ -96,6 +93,15 @@ report-test-coverage:
     when: always
     paths:
       - build/reports/jacoco
+
+static-source-code-analysis:
+  stage: analyze
+  script:
+    - ./gradlew pmdMain
+  artifacts:
+    when: always
+    paths:
+      - build/reports/pmd
 
 deploy-dev:
   stage: deploy
