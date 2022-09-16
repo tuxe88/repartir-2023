@@ -12,13 +12,14 @@ stages:
   - deploy
 
 before_script:
-  - export GRADLE_USER_HOME=cache/.gradle
+  - export GRADLE_USER_HOME=cache/
 
 cache:
   paths:
-    - $GRADLE_USER_HOME/caches/
-    - $GRADLE_USER_HOME/wrapper/
-    - $GRADLE_USER_HOME/build-cache/
+    - cache/caches/
+    - cache/notifications/
+    - cache/wrapper/
+    - cache/build-cache/
 
 build:
   stage: build
