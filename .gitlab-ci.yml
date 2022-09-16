@@ -17,58 +17,54 @@ build:
   stage: build
   script:
     - ./gradlew --build-cache assemble --info
-  cache:
-    key: "$CI_COMMIT_REF_NAME"
-    policy: push
+  artifacts:
+    when: on_success
     paths:
-      - build
-      - .gradle
+      - build/classes
 
 unit-test:
   stage: test
   script:
     - ./gradlew test --info
-  cache:
-    key: "$CI_COMMIT_REF_NAME"
-    policy: pull
-    paths:
-      - build
-      - .gradle
+  artifacts:
+    when: always
+    reports:
+      junit: build/test-results/test/**/TEST-*.xml
+
 
 integration-test:
   stage: test
   script:
-    - echo "Integration Tests."
-    - sleep 10
-    - echo "PASS"
-    #- ./gradlew integrationTest --info
-  cache:
-    key: "$CI_COMMIT_REF_NAME"
-    policy: pull
-    paths:
-      - build
-      - .gradle
+    - ./gradlew integrationTest --info
+  artifacts:
+    when: always
+    reports:
+      junit: build/test-results/integrationTest/**/TEST-*.xml
 
 ui-test:
   stage: test
   script:
-    - echo "UI Tests."
-    - sleep 10
-    - echo "PASS"
+    - export CHROME_OPTIONS=--headless
+    - ./gradlew uiTest --info
+  artifacts:
+    when: always
+    reports:
+      junit: build/test-results/uiTest/**/TEST-*.xml
 
 acceptance-test:
   stage: test
   script:
-    - echo "Acceptance Tests."
-    - sleep 10
-    - echo "PASS"
+    - export CHROME_OPTIONS=--headless
+    - ./gradlew acceptanceTest --info
+  artifacts:
+    when: always
+    reports:
+      junit: build/test-results/acceptanceTest/**/TEST-*.xml
 
 linting:
   stage: test
   script:
     - echo "Linting code... This will take about 10 seconds."
-    - sleep 10
-    - echo "No lint issues found."
 
 package:
   stage: package
@@ -78,7 +74,7 @@ package:
 report-tests:
   stage: report
   script:
-    - echo "Reporting tests"
+    - echo "Reporting"
 
 deploy-dev:
   stage: deploy

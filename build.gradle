@@ -75,11 +75,13 @@ integrationTest {
 uiTest {
 	useJUnitPlatform()
 	mustRunAfter integrationTest
+	systemProperties = System.properties
 }
 
 acceptanceTest {
 	useJUnitPlatform()
 	mustRunAfter uiTest
+	systemProperties = System.properties
 }
 
 apiAcceptanceTest {
