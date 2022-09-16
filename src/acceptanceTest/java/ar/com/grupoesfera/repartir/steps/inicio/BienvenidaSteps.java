@@ -46,7 +46,9 @@ public class BienvenidaSteps extends CucumberSteps {
     @Then("puede empezar a usarla")
     public void puedeEmpezarAUsarla() {
 
+        var wait = new WebDriverWait(driver, 2);
         var nuegoGrupoDialog = driver.findElement(By.cssSelector("app-grupo-nuevo"));
+        wait.until(textToBePresentInElement(nuegoGrupoDialog, "Nuevo Grupo"));
 
         assertThat(nuegoGrupoDialog.isDisplayed())
                 .as("Dialogo de Nuevo Grupo visible")
