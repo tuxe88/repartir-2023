@@ -7,8 +7,11 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.java.es.Dado;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class BienvenidaSteps extends CucumberSteps {
 
@@ -61,9 +64,15 @@ public class BienvenidaSteps extends CucumberSteps {
 
         baseDeDatos.estaVacia();
         driver.navigate().to(url("/"));
+
+        var wait = new WebDriverWait(driver, 2);
+        wait.until(visibilityOfElementLocated(By.id("iniciarDialog")));
+
         driver.findElement(By.id("usuarioInput")).sendKeys("julian");
         var iniciarButton = driver.findElement(By.id("iniciarBienvenidaButton"));
         iniciarButton.click();
+
+        wait.until(invisibilityOfElementLocated(By.id("iniciarDialog")));
     }
 
     @Before
