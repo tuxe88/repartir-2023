@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElement;
 
 public class GruposPage extends UITest.PageObject {
 
@@ -47,10 +48,18 @@ public class GruposPage extends UITest.PageObject {
         return this;
     }
 
-    public String leerNotificacion() {
-
-        var wait = new WebDriverWait(this.driver(), 5);
+    public String leerNotificacionExito() {
+        var wait = new WebDriverWait(this.driver(), 2);
         var mensajesToast = wait.until(visibilityOfElementLocated(By.id("mensajesToast")));
+        wait.until(textToBePresentInElement(mensajesToast, "Éxito"));
         return mensajesToast.getText();
     }
+
+    public String leerNotificacionError() {
+        var wait = new WebDriverWait(this.driver(), 2);
+        var mensajesToast = wait.until(visibilityOfElementLocated(By.id("mensajesToast")));
+        wait.until(textToBePresentInElement(mensajesToast, "Error"));
+        return mensajesToast.getText();
+    }
+
 }
