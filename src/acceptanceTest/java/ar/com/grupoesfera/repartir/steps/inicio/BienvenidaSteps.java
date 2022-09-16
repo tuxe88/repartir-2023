@@ -10,8 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class BienvenidaSteps extends CucumberSteps {
 
@@ -24,10 +23,8 @@ public class BienvenidaSteps extends CucumberSteps {
     @Then("se muestra el mensaje de bienvenida")
     public void seMuestraElMensajeDeBienvenida() {
 
-        var bienvenidaDialog = driver.findElement(By.tagName("p-dialog"));
-
-        var contenido = bienvenidaDialog.getText();
-        assertThat(contenido).contains("Repartir");
+        var wait = new WebDriverWait(driver, 2);
+        wait.until(invisibilityOfElementWithText(By.tagName("p-dialog"), "Repartir"));
     }
 
     @Given("que el usuario accedió a la aplicación")
