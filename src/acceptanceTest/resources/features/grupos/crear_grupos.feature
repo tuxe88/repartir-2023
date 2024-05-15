@@ -36,3 +36,15 @@ Característica: Crear Grupo para repartir gastos
       Cuando el usuario crea un grupo
       Entonces debería visualiza dentro del listado el grupo creado con total '$  0,00'
 
+  Regla: Los grupos no pueden contener miembros con un mismo nombre
+
+    Escenario: Crear un grupo con dos miembros con un mismo nombre
+      Dado que el usuario inició Repartir
+      Cuando el usuario crea un grupo indicando que sus miembros son 'ignacio' y 'ignacio'
+      Entonces no deberia crear el grupo con dos miembros con el mismo nombre
+      Y deberia ser informado que todos los usuarios del grupo deben tener nombres diferente
+
+    Escenario: Crear un grupo con dos miembros con diferente nombre
+      Dado que el usuario inició Repartir
+      Cuando el usuario crea un grupo indicando que sus miembros son 'ignacio' y 'nacho'
+      Entonces visualiza dentro del listado el grupo con los miembros indicados
