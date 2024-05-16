@@ -18,13 +18,22 @@ public class MiembrosConMismoNombreSteps extends CucumberSteps {
 
     @Entonces("no deberia crear el grupo con dos miembros con el mismo nombre")
     public void NoDeberiaCrearElGrupoConDosMiembrosConElMismoNombre() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        var grupoTR = driver.findElements(By.cssSelector("app-grupos table tr"));
+        assertThat(grupoTR).hasSizeGreaterThan(1);
+
+        var campoTDs = grupoTR.get(1).findElements(By.tagName("td"));
+        assertThat(campoTDs.get(0).getText()).isNotEmpty();
     }
     @Entonces("deberia ser informado que todos los usuarios del grupo deben tener nombres diferente")
     public void DeberiaSerInformadoQueTodosLosUsuariosDelGrupoDebenTenerNombresDiferentes() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        var wait = new WebDriverWait(driver, 2);
+        var mensajesToast = wait.withMessage("Mostro Toast")
+                .until(visibilityOfElementLocated(By.id("mensajesToast")));
+        wait.withMessage("Título del Toast es 'Error'")
+                .until(textToBePresentInElement(mensajesToast, "Error"));
+        assertThat(mensajesToast.getText())
+                .as("Descripción del Toast")
+                .contains("No se puede guardar. los nombres de los miembros no deben ser iguales.");
     }
 
 
