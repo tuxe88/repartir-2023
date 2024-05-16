@@ -68,7 +68,16 @@ public class Grupo {
     }
 
     public boolean estaFormado() {
-
         return (miembros != null) && (miembros.size() > 1);
+    }
+    public boolean tieneDuplicados() {
+        for (int i = 0; i < this.miembros.size(); i++) {
+            for (int j = i + 1; j < this.miembros.size(); j++) {
+                if (this.miembros.get(i).equals(this.miembros.get(j))) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

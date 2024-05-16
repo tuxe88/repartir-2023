@@ -2,6 +2,7 @@ package ar.com.grupoesfera.repartir.services;
 
 import ar.com.grupoesfera.repartir.exceptions.GrupoInvalidoException;
 import ar.com.grupoesfera.repartir.exceptions.GrupoNoEncontradoException;
+import ar.com.grupoesfera.repartir.exceptions.GruposNombresDuplicadosException;
 import ar.com.grupoesfera.repartir.model.Gasto;
 import ar.com.grupoesfera.repartir.model.Grupo;
 import ar.com.grupoesfera.repartir.repositories.GruposRepository;
@@ -34,8 +35,12 @@ public class GruposService {
 
         if (Strings.isBlank(grupo.getNombre())) {
             throw new GrupoInvalidoException();
-
         }
+
+        if (grupo.tieneDuplicados()) {
+            throw new GruposNombresDuplicadosException();
+        }
+
         montos.inicializarTotal(grupo);
         repository.save(grupo);
 

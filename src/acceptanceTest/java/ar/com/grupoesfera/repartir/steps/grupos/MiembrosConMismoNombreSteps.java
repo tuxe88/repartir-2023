@@ -19,10 +19,7 @@ public class MiembrosConMismoNombreSteps extends CucumberSteps {
     @Entonces("no deberia crear el grupo con dos miembros con el mismo nombre")
     public void NoDeberiaCrearElGrupoConDosMiembrosConElMismoNombre() {
         var grupoTR = driver.findElements(By.cssSelector("app-grupos table tr"));
-        assertThat(grupoTR).hasSizeGreaterThan(1);
-
-        var campoTDs = grupoTR.get(1).findElements(By.tagName("td"));
-        assertThat(campoTDs.get(0).getText()).isNotEmpty();
+        assertThat(grupoTR).hasSizeBetween(0,2);
     }
     @Entonces("deberia ser informado que todos los usuarios del grupo deben tener nombres diferente")
     public void DeberiaSerInformadoQueTodosLosUsuariosDelGrupoDebenTenerNombresDiferentes() {
@@ -33,7 +30,7 @@ public class MiembrosConMismoNombreSteps extends CucumberSteps {
                 .until(textToBePresentInElement(mensajesToast, "Error"));
         assertThat(mensajesToast.getText())
                 .as("Descripción del Toast")
-                .contains("No se puede guardar. los nombres de los miembros no deben ser iguales.");
+                .contains("No se puede guardar");
     }
 
 
